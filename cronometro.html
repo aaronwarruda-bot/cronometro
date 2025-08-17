@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cronômetro CTA</title>
+<style>
+  body{font-family: Arial, sans-serif; margin:0; padding:20px; background:#f7fafc;}
+  .timer-box{background:#eff6ff; border:1px solid #bfdbfe; border-left:6px solid #3b82f6; border-radius:12px; padding:16px; text-align:center; position:relative; overflow:hidden;}
+  .timer{font-weight:800;font-size:34px; color:#1d4ed8; margin:8px 0;}
+  .progress-bar{position:absolute;bottom:0;left:0;height:6px;background:#2563eb;width:100%; transition: width 1s linear;}
+  .cta-btn{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:16px 26px;border-radius:12px;font-size:18px;font-weight:800; margin-top:12px;}
+</style>
+</head>
+<body>
+  <div class="timer-box">
+    ⏳ <b>Condição especial ativa</b>
+    <div id="timer" class="timer">10:00</div>
+    <div class="progress-bar" id="progress-bar"></div>
+    <a href="https://pay.cakto.com.br/4d47f9o_526104" class="cta-btn">Quero aplicar o método agora</a>
+  </div>
+
+  <script>
+    var totalSeconds = 10*60; // 10 minutos
+    var el = document.getElementById('timer');
+    var progress = document.getElementById('progress-bar');
+    var btn = document.querySelector('.cta-btn');
+    var initialSeconds = totalSeconds;
+
+    function format(s){
+      var m = Math.floor(s/60), r = s%60;
+      return (m<10?'0'+m:m)+':'+(r<10?'0'+r:r);
+    }
+
+    function tick(){
+      el.textContent = format(totalSeconds);
+      var widthPercent = (totalSeconds/initialSeconds)*100;
+      progress.style.width = widthPercent + '%';
+
+      if(totalSeconds<=0){
+        el.textContent='00:00';
+        btn.textContent='Garantir acesso agora';
+        progress.style.width='0%';
+        return;
+      }
+      totalSeconds--;
+      setTimeout(tick,1000);
+    }
+
+    tick();
+  </script>
+</body>
+</html>
